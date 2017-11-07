@@ -62,7 +62,26 @@ int chmod(const char *pathname, mode_t mode);
 int fchmod(int fd, mode_t mode);
 int fchmodat(int fd, const char *pathname, mode_t mode, int flag);
 
+#include <unistd.h>
 
+int chown(const char *pathname, uid_t owner, gid_t group);
+int fchown(int fd, uid_t owner, gid_t group);
+int fchownat(int fd, const char *pathname, uid_t owner, gid_t group, int flag);
+int lchown(const char *pathname, uid_t owner, gid_t group);
+
+int truncate(const char *pathname, off_t length);
+int ftruncate(int fd, off_t length);
+
+int link(const char *existingpath, const char *newpath);
+int linkat(int efd, const char *existingpath, int nfd, const char *newpath, int flag);
+
+int unlink(const char *pathname);
+int unlinkat(int fd, const char *pathname, int flag);
+
+#include <stdio.h>
+int remove(const char *pathname);
+int rename(const char *oldname, const char *newname);
+int renameat(int oldfd, const char *oldname, int newfd, const char *newname);
 
 
 
