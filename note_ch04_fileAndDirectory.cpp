@@ -84,9 +84,58 @@ int rename(const char *oldname, const char *newname);
 int renameat(int oldfd, const char *oldname, int newfd, const char *newname);
 
 
+#include <unistd.h>
+int symlink(const char *actualpath, const char *sympath);
+int symlinkat(const char *actualpath, int fd, const char *sympath);
 
+/* \readlink and \readlinkat combined \open \read and \close functions */
+ssize_t readlink(const char *restrict pathname, char *restrict buf, size_t bufsize);
+ssize_t readlinkat(int fd, const char *restrict pathname, char *restrict buf, size_t bufsize);
 
+#include <sys/stat.h>
 
+/*
+ * if \times == NULL, change both time to current time
+ * if times[i].tv_nsec == UTIME_NOW , ignore tv_sec and set time to current time
+ * if times[i].tv_nsec == UTIME_OMIT, ignore tv_sec and don't change time
+ */
+int futimens(int fd, const struct timespec times[2]);
+int utimensat(int fd, const char *path, const struct timespec times[2], int flag);
+
+int mkdir(const char *pathname, mode_t mode);
+int mkdirat(int fd, const char *pathname, mode_t mode);
+
+#include <unistd.h>
+int rmdir(const char *pathname);
+
+#include <dirent.h>
+
+/* the struct's info is found in 'man readdir', specially in Linux
+ * struct dirent {
+ *     ino_t d_ino;
+ *     off_t d_off;
+ *     unsigned short d_reclen;
+ *     unsigned char  d_type;
+ *     char d_name[256];
+ * };
+ */
+DIR *opendir(const char *pathname);
+DIR *fdopendir(int fd);
+
+struct dirent *readdir(DIR *dp);
+
+void rewinddir(DIR *dp);
+int closedir(DIR *dp);
+
+long telldir(DIR *dp);
+void seekdir(DIR *dp, long loc);
+
+#include <unistd.h>
+int chdir(const char *pathname);
+int fchdir(int fd);
+// get the absolute path of file, if ok return \buf, if error return NULL
+// \size is the size of \buf
+char *getcwd(char *buf, size_t size);
 
 
 

@@ -2,6 +2,7 @@
 #ifndef FUNC_H
 #define FUNC_H
 
+
 #include <cstdio>
 #include <cstdlib>
 
@@ -19,6 +20,8 @@ int wrapper(int rtvalue, const char *str = "") {
     else 
         return rtvalue;
 }
+
+
 
 #endif
 
