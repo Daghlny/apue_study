@@ -61,6 +61,17 @@ int nice(int incremental);
 int getpriority(int which, id_t who);
 int setpriority(int which, id_t who, int value);
 
+#include <sys/times.h>
+/*
+ * struct tms {
+ *     clock_t tms_utime;
+ *     clock_t tms_stime;
+ *     clock_t tms_cutime;
+ *     clock_t tms_cstime;
+ * }
+ */
+clock_t times(struct tms *buf);
+
 
 
 
