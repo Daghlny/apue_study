@@ -83,4 +83,11 @@ int pthread_spin_lock(pthread_spinlock_t *lock);
 int pthread_spin_trylock(pthread_spinlock_t *lock);
 int pthread_spin_unlock(pthread_spinlock_t *lock);
 
+/**************** Barrier ******************/
+#include <pthread.h>
+int pthread_barrier_init(pthread_barrier_t *restrict barrier, 
+                         const pthread_barrierattr_t *restrict attr,
+                         unsigned int count);
+int pthread_barrier_destroy(pthread_barrier_t *barrier);
+int pthread_barrier_wait(pthread_barrier_t *barrier);
 
