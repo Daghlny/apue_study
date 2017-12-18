@@ -5,10 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <algorithm>
 
 #define THR_NUM 8
-#define ARR_NUM 80L
-#define PER_NUM 10L
+#define ARR_NUM 8000000L
+#define PER_NUM 1000000L
     
 pthread_barrier_t barrier;
 
@@ -70,7 +71,8 @@ void *
 thr_func(void *arg)
 {
     int *nums = (int *)arg;
-    local_sort(nums, PER_NUM);
+    //local_sort(nums, PER_NUM);
+    std::sort(nums, nums+PER_NUM);
 
     printf("Thread %ld has finished sorting.\n", pthread_self());
     pthread_barrier_wait(&barrier);
