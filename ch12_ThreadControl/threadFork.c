@@ -40,7 +40,7 @@ int main(void)
         printf("pthread_create error\n");
         exit(0);
     }
-
+    pthread_join(tid, NULL);
     exit(0);
 }
 

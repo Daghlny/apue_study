@@ -11,7 +11,7 @@ int pthread_create(pthread_t *restrict tidp,
 
 void pthread_exit(void *rval_ptr);
 
-int pthread_join(pthread thread, void **rval_ptr);
+int pthread_join(pthread_t thread, void **rval_ptr);
 
 int pthread_cancel(pthread_t tid);
 
