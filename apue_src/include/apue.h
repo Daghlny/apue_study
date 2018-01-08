@@ -42,7 +42,6 @@ typedef	void	Sigfunc(int);	/* for signal handlers */
 
 #define	min(a,b)	((a) < (b) ? (a) : (b))
 #define	max(a,b)	((a) > (b) ? (a) : (b))
-/////////////////// END of ADD by Yinuo ///////////
 
 /*
  * Prototypes for our own functions.
@@ -116,8 +115,7 @@ void	err_quit(const char *, ...) __attribute__((noreturn));
 void	err_cont(int, const char *, ...);
 void	err_exit(int, const char *, ...) __attribute__((noreturn));
 void	err_ret(const char *, ...);
-//void	err_sys(const char *, ...) __attribute__((noreturn));
-void	err_sys(const char *, ...);
+void	err_sys(const char *, ...) __attribute__((noreturn));
 
 void	log_msg(const char *, ...);			/* {App misc_source} */
 void	log_open(const char *, int, int);
@@ -133,4 +131,3 @@ void	WAIT_PARENT(void);
 void	WAIT_CHILD(void);
 
 #endif	/* _APUE_H */
-
