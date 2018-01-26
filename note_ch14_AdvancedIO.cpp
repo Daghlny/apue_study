@@ -68,6 +68,7 @@ int epoll_create1(int flags);
  *     uint32_t events;
  *     epoll_data_t data;
  * };
+ *
  * the \events in \epoll_event:
  * EPOLLIN
  * EPOLLOUT
@@ -118,3 +119,60 @@ int epoll_pwait(int epfd, struct epoll_event *events, int maxevents, int timeout
  * };
  * \sigev_notify can be SIGEV_NONE or SIGEV_SIGNAL or SIGEV_THREAD
  */
+int aio_read(struct aiocb* cb);
+int aio_write(struct aiocb* cb);
+
+// \op can be O_DSYNC or O_SYNC
+int aio_fsync(int op, struct aiocb *cb);
+
+// return 0 for success and use \aio_return to get returnvalue
+// return -1 if error and use \errno
+// EINPROGRESS if it's still wait
+// other with error number
+int aio_error(const struct aiocb *cb);
+
+// return -1 if failure
+// return returnvalue of \aio_read, \aio_write or \aio_fsync
+ssize_t aio_return(const struct aiocb *cb);
+
+//return -1 and errno = EINTR while SIGNAL occurs
+//return -1 and errno = EAGAIN if \timeout is over
+//return 0 if any AIO operation has finished
+int aio_suspend(const struct aiocb* const list[],
+                int nent,
+                const struct timespec* timeout);
+
+int aio_cancel(int fd, struct aiocb *cb);
+
+/*
+ * \mode can be LIO_WAIT or LIO_NOWAIT
+ */
+int lio_listio(int mode, struct aiocb *const list[], int nent, struct sigevent *sigev);
+
+#include <sys/uio.h>
+/*
+ * struct iovec {
+ *     void *iov_base;
+ *     size_t iov_len;
+ * };
+ * \iovcnt is the size of \iov
+ * \return the number of bytes that read or writed
+ */
+ssize_t readv(int fd, const struct iovec *iov, int iovcnt);
+ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
+
+#include <sys/mman.h>
+/* 
+ * \addr often be 0
+ * \prot = PROT_READ, PROT_WRITE, PROT_EXEC, PROT_NONE
+ * \flag = MAP_FIXED, MAP_SHARED, MAP_PRIVATE
+ * \return the buffer's address, MAP_FAILED if error occurs
+ */
+void *mmap(void *addr, size_t len, int prot, int flag, int fd, off_t off);
+
+int mprotect(void *addr, size_t len, int prot);
+int msync(void *addr, size_t len, int flags);
+int munmap(void *addr, size_t len);
+
+
+
